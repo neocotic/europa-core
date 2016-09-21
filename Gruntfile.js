@@ -21,44 +21,35 @@
  */
 
 module.exports = function(grunt) {
+  var semver = require('semver')
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    babel: {
-      options: {
-        sourceMaps: 'inline'
-      },
-      build: {
-        files: [
-          {
-            expand: true,
-            cwd: 'src/',
-            src: [ '**/*.js' ],
-            dest: 'lib/'
-          }
-        ]
-      }
-    },
-
-    clean: {
-      build: [ 'lib' ]
-    },
-
-    eslint: {
-      target: [ 'src/**/*.js' ]
-    },
-
     watch: {
       all: {
-        files: [ 'src/**/*.js' ],
-        tasks: [ 'build' ]
+        files: [ 'lib/**/*.js' ],
+        tasks: [ 'test' ]
       }
     }
   })
 
-  require('load-grunt-tasks')(grunt)
+  var testTasks = []
 
-  grunt.registerTask('default', [ 'build' ])
-  grunt.registerTask('build', [ 'eslint', 'clean', 'babel' ])
-  grunt.registerTask('test', [ 'eslint' ])
+  if (semver.satisfies(process.version, '>=4')) {
+    testTasks.unshift('eslint')
+
+    grunt.config.set('eslint', {
+      target: [ 'lib/**/*.js' ]
+    })
+
+    grunt.loadNpmTasks('grunt-eslint')
+  } else {
+    grunt.log.writeln('"eslint" task is disabled because Node.js version is <4! Please consider upgrading Node.js...')
+  }
+
+  grunt.loadNpmTasks('grunt-contrib-watch')
+
+  grunt.registerTask('default', [ 'test' ])
+  grunt.registerTask('test', testTasks)
 }

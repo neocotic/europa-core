@@ -1,10 +1,10 @@
 {
-  "extends": "skelp/v2/es6",
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module"
+  "extends": "skelp/v2/es5",
+  "env": {
+    "node": true
   },
   "rules": {
+    "no-invalid-this": "off",
     "no-unused-vars": [
       "error",
       {

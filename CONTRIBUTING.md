@@ -16,6 +16,9 @@ $ npm install
 $ npm test
 ```
 
+If you're using a version of [Node.js](https://nodejs.org) that is older than 0.12, then linting is not performed by
+this step. Please consider upgrading to at least 0.12 or your pull request may fail on the CI build.
+
 All pull requests should be made to the `develop` branch.
 
 Don't forget to add your details to the list of
