@@ -92,7 +92,6 @@ var Europa = Nevis.extend(function(options) {
     if (!document.contains(root)) {
       wrapper = document.createElement('div');
       wrapper.style.display = 'none';
-      wrapper.style.visibility = 'hidden';
       wrapper.appendChild(root);
 
       document.body.appendChild(wrapper);
