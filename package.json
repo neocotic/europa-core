@@ -1,6 +1,6 @@
 {
   "name": "europa-core",
-  "version": "4.0.0-alpha8",
+  "version": "4.0.0-alpha9",
   "description": "Europa core engine for converting HTML into valid Markdown",
   "homepage": "https://github.com/NotNinja/europa-core",
   "bugs": {
