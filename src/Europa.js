@@ -76,26 +76,45 @@ var Europa = Nevis.extend(function(options) {
       return '';
     }
 
+    var document = this.document;
     var root;
 
     if (typeof html === 'string') {
-      root = this.window.document.createElement('div');
+      root = document.createElement('div');
       root.innerHTML = html;
     } else {
       root = html;
     }
 
     var conversion = new Conversion(this, this._options);
+    var wrapper;
 
-    Utilities.forOwn(pluginManager.plugins, function(plugin) {
-      plugin.beforeAll(conversion);
-    });
+    if (!document.contains(root)) {
+      wrapper = document.createElement('div');
+      wrapper.style.display = 'none';
+      wrapper.style.visibility = 'hidden';
+      wrapper.appendChild(root);
 
-    this.convertElement(root, conversion);
+      document.body.appendChild(wrapper);
+    }
 
-    Utilities.forOwn(pluginManager.plugins, function(plugin) {
-      plugin.afterAll(conversion);
-    });
+    try {
+      Utilities.forOwn(pluginManager.plugins, function(plugin) {
+        plugin.beforeAll(conversion);
+      });
+
+      this.convertElement(root, conversion);
+
+      Utilities.forOwn(pluginManager.plugins, function(plugin) {
+        plugin.afterAll(conversion);
+      });
+    } finally {
+      if (wrapper) {
+        document.body.removeChild(wrapper);
+
+        wrapper.removeChild(root);
+      }
+    }
 
     return conversion.append('').buffer.trim();
   },
