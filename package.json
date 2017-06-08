@@ -1,15 +1,15 @@
 {
   "name": "europa-core",
   "version": "4.0.0-alpha8",
-  "description": "Core engine of Europa",
-  "homepage": "https://github.com/Skelp/europa-core",
+  "description": "Europa core engine for converting HTML into valid Markdown",
+  "homepage": "https://github.com/NotNinja/europa-core",
   "bugs": {
-    "url": "https://github.com/Skelp/europa-core/issues"
+    "url": "https://github.com/NotNinja/europa-core/issues"
   },
   "author": {
     "name": "Alasdair Mercer",
-    "email": "alasdair@skelp.io",
-    "url": "https://skelp.io"
+    "email": "mercer.alasdair@gmail.com",
+    "url": "https://not.ninja"
   },
   "license": "MIT",
   "keywords": [
@@ -17,28 +17,23 @@
     "core",
     "html",
     "markdown",
-    "transform",
-    "convert"
+    "convert",
+    "converter"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Skelp/europa-core.git"
+    "url": "https://github.com/NotNinja/europa-core.git"
   },
   "dependencies": {
-    "lodash.assign": "^4.2.0",
-    "lodash.forown": "^4.4.0",
-    "oopsy": "^0.1.1"
+    "nevis": "^0.5.0"
   },
   "devDependencies": {
-    "eslint-config-skelp": "^0.1.5",
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-eslint": "^18.1.0",
-    "semver": "^5.3.0"
+    "eslint": "^3.19.0",
+    "eslint-config-notninja": "^0.1.1"
   },
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "grunt test"
+    "ci": "npm run test",
+    "test": "eslint \"index.js\" \"src/**/*.js\""
   }
 }
