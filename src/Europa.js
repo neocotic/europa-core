@@ -122,7 +122,7 @@ var Europa = Nevis.extend(function(options) {
     var context, i, plugin, value;
 
     if (element.nodeType === window.Node.ELEMENT_NODE) {
-      if (!DOMUtilities.isVisible(element)) {
+      if (!DOMUtilities.isVisible(element, window)) {
         return;
       }
 
