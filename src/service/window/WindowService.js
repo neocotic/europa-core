@@ -50,17 +50,16 @@ var WindowService = Service.extend({
   },
 
   /**
-   * Returns the base URI for the specified <code>window</code>.
+   * Returns the default base URI for windows provided by this {@link WindowService}.
    *
    * Implementations of {@link WindowService} <b>must</b> override this method with their own specific logic.
    *
-   * @param {Window} window - the window for which the base URI is to be returned
-   * @return {string} The base URI for <code>window</code>.
+   * @return {string} The default base URI.
    * @public
    * @abstract
    * @memberof WindowService#
    */
-  getBaseUri: function(window) {},
+  getDefaultBaseUri: function() {},
 
   /**
    * @override
@@ -70,16 +69,20 @@ var WindowService = Service.extend({
   },
 
   /**
-   * Returns a window to be used for converting HTML to Markdown.
+   * Returns a window to be used for converting HTML to Markdown using the base URI provided.
+   *
+   * It's important to note that the base URI cannot be changed in some environments, in which case <code>baseUri</code>
+   * will be ignored.
    *
    * Implementations of {@link WindowService} <b>must</b> override this method with their own specific logic.
    *
+   * @param {string} baseUri - the base URI to be used
    * @return {Window} The window.
    * @public
    * @abstract
    * @memberof WindowService#
    */
-  getWindow: function() {},
+  getWindow: function(baseUri) {},
 
   /**
    * Returns whether the specified <code>window</code> which was retrieved by this {@link WindowService} is closeable.

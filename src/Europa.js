@@ -48,7 +48,14 @@ var serviceManager = new ServiceManager();
  * @extends Nevis
  */
 var Europa = Nevis.extend(function(options) {
-  this._options = options;
+  this._options = new OptionParser([
+    new Option('absolute', false),
+    new Option('baseUri', function() {
+      return serviceManager.getService('window').getDefaultBaseUri();
+    }),
+    new Option('inline', false)
+  ])
+  .parse(options);
   this._window = null;
 }, {
 
@@ -69,25 +76,16 @@ var Europa = Nevis.extend(function(options) {
       return '';
     }
 
-    var window = this.window;
-    var options = new OptionParser([
-      new Option('absolute', false),
-      new Option('baseUri', function() {
-        return serviceManager.getService('window').getBaseUri(window);
-      }),
-      new Option('inline', false)
-    ])
-    .parse(this._options);
     var root;
 
     if (typeof html === 'string') {
-      root = window.document.createElement('div');
+      root = this.window.document.createElement('div');
       root.innerHTML = html;
     } else {
       root = html;
     }
 
-    var conversion = new Conversion(this, options);
+    var conversion = new Conversion(this, this._options);
 
     Utilities.forOwn(pluginManager.plugins, function(plugin) {
       plugin.beforeAll(conversion);
@@ -279,7 +277,7 @@ Object.defineProperties(Europa.prototype, {
      */
     get: function() {
       if (!this._window) {
-        this._window = serviceManager.getService('window').getWindow();
+        this._window = serviceManager.getService('window').getWindow(this._options.baseUri);
       }
 
       return this._window;
@@ -295,6 +293,7 @@ module.exports = Europa;
  *
  * @typedef {Object} Europa~Options
  * @property {boolean} [absolute=false] - Whether absolute URLS should be used for anchors/images.
- * @property {string} [baseUri] - The base URI for the window.
+ * @property {string} [baseUri] - The base URI for the window. This is ignored in environments where the base URI cannot
+ * be changed.
  * @property {boolean} [inline=false] - Whether anchor/image URLs are to be inserted inline.
  */

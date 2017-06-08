@@ -42,8 +42,8 @@ var Europa = require('europa-core');
 var WindowService = require('europa-core/src/service/window/WindowService');
 
 var ExampleWindowService = WindowService.extend({
-  getBaseUri: function(window) { /* ... */ },
-  getWindow: function() { /* ... */ },
+  getDefaultBaseUri: function() { /* ... */ },
+  getWindow: function(baseUri) { /* ... */ },
   isCloseable: function(window) { /* ... */ }
 });
 
