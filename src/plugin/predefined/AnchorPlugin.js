@@ -22,6 +22,7 @@
 
 'use strict';
 
+var Europa = require('../../Europa');
 var Plugin = require('../Plugin');
 
 /**
@@ -119,5 +120,7 @@ var AnchorPlugin = Plugin.extend({
   }
 
 });
+
+Europa.register(new AnchorPlugin());
 
 module.exports = AnchorPlugin;

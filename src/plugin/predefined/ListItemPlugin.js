@@ -22,6 +22,7 @@
 
 'use strict';
 
+var Europa = require('../../Europa');
 var Plugin = require('../Plugin');
 var Utilities = require('../../util/Utilities');
 
@@ -64,5 +65,7 @@ var ListItemPlugin = Plugin.extend({
   }
 
 });
+
+Europa.register(new ListItemPlugin());
 
 module.exports = ListItemPlugin;

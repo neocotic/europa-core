@@ -22,6 +22,7 @@
 
 'use strict';
 
+var Europa = require('../../Europa');
 var Plugin = require('../Plugin');
 
 /**
@@ -66,5 +67,7 @@ var EmphasisPlugin = Plugin.extend({
   }
 
 });
+
+Europa.register(new EmphasisPlugin());
 
 module.exports = EmphasisPlugin;

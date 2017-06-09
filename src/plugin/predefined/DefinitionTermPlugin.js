@@ -22,6 +22,7 @@
 
 'use strict';
 
+var Europa = require('../../Europa');
 var Plugin = require('../Plugin');
 
 /**
@@ -61,5 +62,7 @@ var DefinitionTermPlugin = Plugin.extend({
   }
 
 });
+
+Europa.register(new DefinitionTermPlugin());
 
 module.exports = DefinitionTermPlugin;

@@ -22,41 +22,22 @@
 
 'use strict';
 
-var Nevis = require('nevis/lite');
-
-/**
- * A preset of plugins usually grouped for a specific purpose.
- *
- * @param {Plugin[]} [plugins] - the plugins that are to be registered
- * @public
- * @class
- * @extends Nevis
- */
-var Preset = Nevis.extend(function(plugins) {
-  /**
-   * The plugins for this {@link Preset}.
-   *
-   * @public
-   * @type {Plugin[]}
-   * @memberof Preset#
-   */
-  this.plugins = plugins ? plugins.slice() : [];
-}, {
-
-  /**
-   * Adds the specified <code>plugin</code> to this {@link Preset}.
-   *
-   * @param {Plugin} plugin - the {@link Plugin} to be added
-   * @return {Preset} A reference to this {@link Preset} for chaining purposes.
-   * @public
-   * @memberof Preset#
-   */
-  add: function(plugin) {
-    this.plugins.push(plugin);
-
-    return this;
-  }
-
-});
-
-module.exports = Preset;
+require('../predefined/AnchorPlugin');
+require('../predefined/BlockQuotePlugin');
+require('../predefined/BreakPlugin');
+require('../predefined/CodePlugin');
+require('../predefined/DefinitionTermPlugin');
+require('../predefined/DetailsPlugin');
+require('../predefined/EmphasisPlugin');
+require('../predefined/EmptyPlugin');
+require('../predefined/FramePlugin');
+require('../predefined/HeadingPlugin');
+require('../predefined/HorizontalRulePlugin');
+require('../predefined/ImagePlugin');
+require('../predefined/ListItemPlugin');
+require('../predefined/OrderedListPlugin');
+require('../predefined/ParagraphPlugin');
+require('../predefined/PreformattedPlugin');
+require('../predefined/QuotePlugin');
+require('../predefined/StrongPlugin');
+require('../predefined/UnorderedListPlugin');

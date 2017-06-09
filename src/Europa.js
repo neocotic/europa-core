@@ -25,18 +25,14 @@
 var Nevis = require('nevis/lite');
 
 var Conversion = require('./Conversion');
-var DefaultPreset = require('./plugin/preset/DefaultPreset');
 var DOMUtilities = require('./util/DOMUtilities');
 var Option = require('./option/Option');
 var OptionParser = require('./option/OptionParser');
 var Plugin = require('./plugin/Plugin');
-var PluginManager = require('./plugin/PluginManager');
-var Preset = require('./plugin/preset/Preset');
 var ServiceManager = require('./service/ServiceManager');
 var Utilities = require('./util/Utilities');
 
-var pluginManager = new PluginManager();
-pluginManager.registerPreset(new DefaultPreset());
+var plugins = {};
 var serviceManager = new ServiceManager();
 
 /**
@@ -98,13 +94,13 @@ var Europa = Nevis.extend(function(options) {
     }
 
     try {
-      Utilities.forOwn(pluginManager.plugins, function(plugin) {
+      Utilities.forOwn(plugins, function(plugin) {
         plugin.beforeAll(conversion);
       });
 
       this.convertElement(root, conversion);
 
-      Utilities.forOwn(pluginManager.plugins, function(plugin) {
+      Utilities.forOwn(plugins, function(plugin) {
         plugin.afterAll(conversion);
       });
     } finally {
@@ -147,7 +143,7 @@ var Europa = Nevis.extend(function(options) {
       conversion.element = element;
 
       context = {};
-      plugin = pluginManager.plugins[conversion.tagName];
+      plugin = plugins[conversion.tagName];
       convertChildren = true;
 
       if (plugin) {
@@ -210,16 +206,6 @@ var Europa = Nevis.extend(function(options) {
   Plugin: Plugin,
 
   /**
-   * A convient reference to {@link Preset} exposed on {@link Europa} for cases where Europa Core is bundled.
-   *
-   * @public
-   * @static
-   * @type {Function}
-   * @memberof Europa
-   */
-  Preset: Preset,
-
-  /**
    * Registers the specified <code>plugin</code> to be used by all {@link Europa} instances.
    *
    * If <code>plugin</code> declares support for a tag name which already has a {@link Plugin} registered for it,
@@ -232,24 +218,9 @@ var Europa = Nevis.extend(function(options) {
    * @memberof Europa
    */
   register: function(plugin) {
-    pluginManager.register(plugin);
-  },
-
-  /**
-   * Registers all of the plugins within the specified <code>preset</code> to be used by all {@link Europa} instances.
-   *
-   * If a {@link Plugin} within <code>preset</code> declares support for a tag name which already has a plugin
-   * registered for it, the plugin within <code>preset</code> will replace the previously registered plugin, but only
-   * for conflicting tag names.
-   *
-   * @param {Preset} preset - the {@link Preset} whose plugins are to be registered
-   * @return {void}
-   * @public
-   * @static
-   * @memberof Europa
-   */
-  registerPreset: function(preset) {
-    pluginManager.registerPreset(preset);
+    plugin.getTagNames().forEach(function(tag) {
+      plugins[tag] = plugin;
+    });
   },
 
   /**
@@ -305,6 +276,8 @@ Object.defineProperties(Europa.prototype, {
 });
 
 module.exports = Europa;
+
+require('./plugin/preset/default');
 
 /**
  * The options used by {@link Europa}.

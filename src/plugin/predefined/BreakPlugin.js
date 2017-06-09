@@ -22,6 +22,7 @@
 
 'use strict';
 
+var Europa = require('../../Europa');
 var Plugin = require('../Plugin');
 
 /**
@@ -53,5 +54,7 @@ var BreakPlugin = Plugin.extend({
   }
 
 });
+
+Europa.register(new BreakPlugin());
 
 module.exports = BreakPlugin;

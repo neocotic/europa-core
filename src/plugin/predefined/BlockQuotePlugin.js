@@ -22,6 +22,7 @@
 
 'use strict';
 
+var Europa = require('../../Europa');
 var Plugin = require('../Plugin');
 
 /**
@@ -79,5 +80,7 @@ var BlockQuotePlugin = Plugin.extend({
   }
 
 });
+
+Europa.register(new BlockQuotePlugin());
 
 module.exports = BlockQuotePlugin;
