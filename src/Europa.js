@@ -174,17 +174,17 @@ var Europa = Nevis.extend(function(options) {
   },
 
   /**
-   * Destroys the window used by this {@link Europa} instance.
+   * Releases the window used by this {@link Europa} instance.
    *
    * This allows closeable {@link WindowService} implementations to close the window and free up resources. However,
-   * this instance can and will simply retrieve another Window from the {@link WindowService} the next time it is
-   * required.
+   * this instance can and will simply retrieve another window from the {@link WindowService} the next time it is
+   * required (i.e. {@link Europa#convert} is called).
    *
    * @return {Europa} A reference to this {@link Europa} for chaining purposes.
    * @public
    * @memberof Europa#
    */
-  destroy: function() {
+  release: function() {
     if (this._window) {
       serviceManager.getService('window').closeWindow(this._window);
       this._window = null;
