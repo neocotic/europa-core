@@ -277,8 +277,6 @@ Object.defineProperties(Europa.prototype, {
 
 module.exports = Europa;
 
-require('./plugin/preset/default');
-
 /**
  * The options used by {@link Europa}.
  *
