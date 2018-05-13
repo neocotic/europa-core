@@ -85,6 +85,10 @@ var AnchorPlugin = Plugin.extend({
     if (!href) {
       return true;
     }
+    if (options.inline) {
+      href = href.replace(/\(/g, '%28');
+      href = href.replace(/\)/g, '%29');
+    }
 
     var anchorMap = conversion.context.anchorMap;
     var anchors = conversion.context.anchors;
