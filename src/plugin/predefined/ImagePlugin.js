@@ -75,6 +75,10 @@ var ImagePlugin = Plugin.extend({
     if (!source) {
       return false;
     }
+    if (options.inline) {
+      source = source.replace(/\(/g, '%28');
+      source = source.replace(/\)/g, '%29');
+    }
 
     var alternativeText = element.getAttribute('alt') || '';
     var imageMap = conversion.context.imageMap;
